@@ -1,166 +1,109 @@
-# ⭐ StoreRater - FullStack Store Rating Platform
+# ⭐ StoreRater - Full-Stack Store Rating & Merchant Platform
 
-A full-stack web application built for the **FullStack Intern Coding Challenge**. It allows users to register, browse registered stores, submit and update ratings (1-5 stars), while providing tailored dashboards for **System Administrators**, **Normal Users**, and **Store Owners**.
-
----
-
-## 🛠 Tech Stack
-
-- **Backend**: Express.js, Node.js, JWT, bcryptjs, express-validator
-- **Database**: PostgreSQL hosted on Supabase (accessed via `@supabase/supabase-js`)
-- **Frontend**: React.js (Vite), React Router v6, Axios, Vanilla CSS design system
-- **Authentication**: Role-based Access Control (RBAC) with Bearer JWT tokens
+StoreRater is a production-ready, full-stack web application designed for transparent store reviews and merchant management. It implements Role-Based Access Control (RBAC) across three distinct user roles: **System Administrator**, **Normal Shopper**, and **Store Owner**, backed by an Express/Node.js REST API, PostgreSQL on Supabase, and a responsive React (Vite) frontend.
 
 ---
 
-## 👥 User Roles & Features
+## 🚀 How to Start the Application
 
-### 1. 🛡️ System Administrator
-- **Dashboard**: Real-time summary cards displaying:
-  - Total number of registered users
-  - Total number of stores
-  - Total number of submitted ratings
-- **User Management**:
-  - Add new users (Admin, Normal User, Store Owner) with full validation
-  - View list of all users with Name, Email, Address, and Role
-  - Filter users by Name, Email, Address, and Role
-  - Sort table by Name, Email, Address, Role, or Date
-  - View individual user profile detail (including assigned store and average rating if Store Owner)
-- **Store Management**:
-  - Add new stores with optional Store Owner assignment
-  - View list of all stores with Name, Email, Address, and Average Rating
-  - Filter stores by Name, Email, and Address
-  - Sort table columns ascending/descending
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- `npm` package manager
 
-### 2. 👤 Normal User
-- **Authentication**:
-  - Sign up with validation (Name 20-60 chars, Password rules, Address <= 400 chars)
-  - Sign in with email and password
-  - Change password after logging in
-- **Store Browsing & Ratings**:
-  - View all registered stores
-  - Real-time search by Store Name and Address
-  - View overall store rating and total rating count
-  - View personal submitted rating
-  - Submit ratings (1 to 5 stars)
-  - Modify existing rating at any time
-
-### 3. 🏪 Store Owner
-- **Authentication**:
-  - Log in with email and password
-  - Change password after logging in
-- **Store Dashboard**:
-  - View assigned store details
-  - View overall average rating (out of 5.0) and total rating count
-  - View list of all users who submitted ratings (User Name, Email, Rating given, Date)
-
----
-
-## 🔒 Form Validations Enforced (Frontend & Backend)
-
-- **Name**: Min 20 characters, Max 60 characters.
-- **Address**: Max 400 characters, required.
-- **Password**: 8-16 characters, must include at least 1 uppercase letter and 1 special character (`!@#$%^&*...`).
-- **Email**: Standard RFC email format validation and normalization.
-- **Rating**: Integer between 1 and 5.
-
----
-
-## 🚀 Getting Started
-
-### 1. Database Setup (Supabase)
-1. Open your Supabase SQL Editor:
-   `https://supabase.com/dashboard/project/cjfifmagowtbnyjiuyuu/sql/new`
-2. Copy and paste the contents of `backend/database/migration.sql` into the SQL Editor and click **Run**.
-3. Run the seeder script in the backend to create the default Admin:
-   ```bash
-   cd backend
-   node database/migrate.js
-   ```
-
-#### Default Admin Credentials
-- **Email**: `admin@roxiler.com`
-- **Password**: `Admin@1234`
-
----
-
-### 2. Running the Backend
-
+### 1. Start the Backend API Server
 ```bash
 cd backend
 npm install
 npm start
 ```
-The API server will run at: `http://localhost:5000`
+* The backend API server starts at: **`http://localhost:5000`**
+* Environment variables are pre-configured in `backend/.env` with Supabase credentials and JWT secrets. An environment template is provided at `backend/.env.example`.
 
----
-
-### 3. Running the Frontend
-
+### 2. Start the Frontend Client
+In a separate terminal window:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-The client application will run at: `http://localhost:5173`
+* The Vite development server launches at: **`http://localhost:5173`**
 
 ---
 
-## 📂 Project Structure
+## 🔑 Demo Accounts & Credentials
+
+All test accounts across all roles use the standardized password: **`Password@123`**
+
+| Role | Email Address | Password | Persona & Focus Area |
+| :--- | :--- | :--- | :--- |
+| **System Admin** | `admin@roxiler.com` | `Password@123` | Platform oversight, user directory, store directory, audit trail |
+| **Store Owner** | `gurvinder.singh@hardwaredepot.in` | `Password@123` | *Bajrang Hardware & Asian Paints Depot* • Verified GSTIN `07AAAFB5566G1Z8` |
+| **Store Owner** | `rajesh.store@example.com` | `Password@123` | *Sharma Supermarket & General Store* • Live store owner dashboard |
+| **Normal Shopper** | `ananya.cs.nair@gmail.com` | `Password@123` | Browse unrated stores, submit ratings & feedback, "My Reviews" section |
+| **Normal Shopper** | `rohitashva.kulkarni@gmail.com` | `Password@123` | Store catalog search, filter by location, rating modifications |
+
+---
+
+## 👥 Role Features & Workflows
+
+### 1. 🛡️ System Administrator
+- **Dashboard Counters**: Live metrics on total registered users, stores, and ratings submitted.
+- **User & Store Directory**: Real-time search, multi-column sorting (Name, Email, Role, Created Date), and full-row click navigation.
+- **Onboarding Controls**: Add new users or registered stores with role-specific form validations.
+- **Full Audit Inspection**: Direct access to user activity breakdowns and merchant ratings.
+
+### 2. 👤 Normal Shopper
+- **Smart Store Feed**: Browse registered stores that haven't been rated yet; newly registered stores display a `New Store` status badge.
+- **Authentic 1–5 Star Ratings**: Submit star ratings along with optional qualitative feedback.
+- **Dedicated "My Reviews" Section**: Once rated, stores move to the user's personal review hub where ratings can be edited or deleted anytime.
+- **Search & Discovery**: Filter stores dynamically by commercial name or physical address.
+
+### 3. 🏪 Store Owner
+- **Live Business Dashboard**: Real-time average rating score (out of 5.0), total review count, and full list of customer feedback.
+- **Verified GSTIN Identification**: Mandatory 15-character Goods and Services Tax Identification Number validation (e.g. `07AAAFB5566G1Z8`) attached to the store profile.
+- **"My Account" Portal**: Inspect personal identity and registered commercial store details (Store Name, GSTIN, Store Email, Physical Location, and Member Since date) with self-service update capability.
+
+---
+
+## 🔒 Form Validations & Security Rules
+
+- **Full Name**: 20 to 60 characters.
+- **Address**: 20 to 400 characters (both residential and store locations).
+- **Password Complexity**: 8 to 16 characters with at least one uppercase letter (`A-Z`) and one special character (`!@#$%^&*...`).
+- **Email Validation**: Case-insensitive RFC format matching with periods/dots fully preserved.
+- **GSTIN Number**: Standard 15-character alphanumeric tax format strictly enforced for Store Owner registrations.
+- **Password Security**: Passwords hashed with `bcryptjs` using 12 salt rounds.
+- **JWT Protection**: Tokens issued with short expiration and verified by server-side route middleware.
+
+---
+
+## 📂 Project Architecture
 
 ```
 Roxiler/
 ├── backend/
-│   ├── config/
-│   │   └── supabase.js         # Supabase client setup
-│   ├── controllers/
-│   │   ├── auth.controller.js      # Signup, login, change password
-│   │   ├── user.controller.js      # User CRUD & filters (Admin)
-│   │   ├── store.controller.js     # Store CRUD, search, ratings
-│   │   ├── rating.controller.js    # Rating submit/modify & rater list
-│   │   └── dashboard.controller.js # Admin stats & Store owner stats
-│   ├── database/
-│   │   ├── migration.sql       # PostgreSQL DDL & schema definition
-│   │   └── migrate.js          # DB test & admin seeder script
-│   ├── middleware/
-│   │   ├── auth.js             # JWT verification & role authorization
-│   │   └── validate.js         # express-validator rules
-│   ├── routes/
-│   │   ├── auth.routes.js
-│   │   ├── user.routes.js
-│   │   ├── store.routes.js
-│   │   ├── rating.routes.js
-│   │   └── dashboard.routes.js
-│   ├── .env                    # Environment variables
-│   └── server.js               # Express entry point
+│   ├── config/supabase.js          # Supabase client connection
+│   ├── controllers/                # Auth, user, store, rating & dashboard controllers
+│   ├── database/                   # Schema migrations & seed scripts
+│   ├── middleware/                 # JWT auth guards & express-validator rules
+│   ├── routes/                     # REST API route endpoints
+│   ├── .env.example                # Sample environment template
+│   └── server.js                   # Express server entry point
 │
 └── frontend/
     ├── src/
-    │   ├── api/
-    │   │   └── axios.js        # Axios instance with JWT interceptor
-    │   ├── components/
-    │   │   ├── Navbar.jsx          # Header with role links & password modal
-    │   │   ├── ProtectedRoute.jsx  # Role-based route guard
-    │   │   ├── RatingStars.jsx     # Interactive 5-star rating component
-    │   │   └── PasswordModal.jsx   # Change password dialog
-    │   ├── context/
-    │   │   └── AuthContext.jsx # Global user auth state
+    │   ├── api/axios.js            # Axios client with auth interceptors
+    │   ├── components/             # Navbar, BrandLogo, RatingStars, PasswordModal, Icons
+    │   ├── context/AuthContext.jsx # Global user authentication state
     │   ├── pages/
-    │   │   ├── Login.jsx
-    │   │   ├── Signup.jsx
-    │   │   ├── admin/
-    │   │   │   ├── AdminDashboard.jsx
-    │   │   │   ├── ManageUsers.jsx
-    │   │   │   ├── ManageStores.jsx
-    │   │   │   ├── AddUser.jsx
-    │   │   │   ├── AddStore.jsx
-    │   │   │   └── UserDetail.jsx
-    │   │   ├── user/
-    │   │   │   └── UserDashboard.jsx
-    │   │   └── store-owner/
-    │   │       └── StoreOwnerDashboard.jsx
-    │   ├── App.jsx             # React Router routing
-    │   ├── index.css           # Premium dark theme & CSS design system
-    │   └── main.jsx
+    │   │   ├── Login.jsx           # User sign-in
+    │   │   ├── Signup.jsx          # User & store owner registration
+    │   │   ├── MyAccount.jsx       # Personal profile & commercial GSTIN management
+    │   │   ├── admin/              # Admin dashboard, user/store management, detail pages
+    │   │   ├── user/               # Shopper store feed & My Reviews page
+    │   │   └── store-owner/        # Store owner dashboard & audit breakdown
+    │   ├── index.css               # Design system & responsive styles
+    │   └── App.jsx                 # Application route definitions
+    ├── index.html
     └── package.json
 ```
